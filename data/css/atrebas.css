@@ -1,0 +1,218 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+/* SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> */
+
+/*
+ * Animations
+ */
+@keyframes spinner {
+    from { transform: rotate(0deg);   }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes zoomer {
+      0% { transform: scale3d(1.0, 1.0, 1.0); }
+     25% { transform: scale3d(1.5, 1.5, 1.5); }
+     50% { transform: scale3d(1.0, 1.0, 1.0); }
+     75% { transform: scale3d(0.75, 0.75, 0.75); }
+    100% { transform: scale3d(1.0, 1.0, 1.0); }
+}
+
+
+/*
+ * Spinner
+ */
+.atrebas-spinner {
+  animation-name: spinner;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  color: @accent_color;
+}
+
+/*
+ * Bookmark Button & Visible Button (Legend Row Toggle)
+ */
+.atrebas-favorite,
+.atrebas-visible {
+  border-radius: 9999px;
+}
+
+.atrebas-favorite:checked:not(:hover),
+.atrebas-visible:checked:not(:hover) {
+  background-color: transparent;
+}
+
+.atrebas-favorite image,
+.atrebas-visible image {
+  filter: opacity(0.3);
+  transition: color 500ms, filter 500ms;
+}
+
+.atrebas-favorite:checked image {
+  animation-name: zoomer;
+  animation-duration: 500ms;
+  animation-timing-function: ease;
+  color: @red_2;
+  filter: opacity(1.0);
+}
+
+.atrebas-visible:checked image {
+  color: @blue_4;
+  filter: opacity(1.0);
+}
+
+
+/*
+ * Labels
+ */
+.atrebas-title {
+  font-size: medium;
+  /* font-weight: normal; */
+}
+
+.atrebas-subtitle {
+  font-size: small;
+  opacity: 0.625;
+}
+
+.atrebas-xxsmall {
+  font-size: xx-small;
+}
+
+.atrebas-xsmall {
+  font-size: x-small;
+}
+
+.atrebas-small {
+  font-size: small;
+}
+
+.atrebas-large {
+  font-size: large;
+}
+
+.atrebas-xlarge {
+  font-size: x-large;
+}
+
+.atrebas-xxlarge {
+  font-size: xx-large;
+}
+
+
+/*
+ * Legend
+ */
+button.atrebas-language,
+button.atrebas-territory,
+button.atrebas-treaty {
+  border-radius: 9999px;
+  padding: 12px;
+}
+
+button.atrebas-language {
+  background-color: @blue_4;
+  color: @accent_fg_color;
+}
+
+button.atrebas-territory {
+  background-color: @green_4;
+  color: @accent_fg_color;
+}
+
+button.atrebas-treaty {
+  background-color: @orange_4;
+  color: @accent_fg_color;
+}
+
+
+label.atrebas-language {
+  border: 3px dotted @blue_4;
+  border-radius: 9999px;
+  padding: 6px;
+}
+
+label.atrebas-territory {
+  border: 2px dashed @green_4;
+  border-radius: 9999px;
+  padding: 6px;
+}
+
+label.atrebas-treaty {
+  border: 2px solid @orange_4;
+  border-radius: 9999px;
+  padding: 6px;
+}
+
+
+/*
+ * Map View
+ */
+.atrebas-map flap > stack {
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+}
+
+.atrebas-map label.atrebas-license {
+  background: alpha(@theme_bg_color, 0.5);
+  border-radius: 6px;
+  font-size: smaller;
+  margin: 3px;
+  padding: 3px 6px;
+}
+
+.atrebas-map-marker {
+  color: @accent_bg_color;
+  background-color: alpha(@accent_fg_color, 0.75);
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+
+.atrebas-feature-layer {
+  transition: opacity 500ms;
+  opacity: 1.0;
+}
+
+.atrebas-feature-layer:disabled {
+  opacity: 0.0;
+}
+
+
+/*
+ * Place Bar
+ */
+.atrebas-place-bar {
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+  margin-top: 3px;
+}
+
+.atrebas-placebar .atrebas-place-header .atrebas-title {
+  font-weight: bold;
+}
+
+.atrebas-placebar .atrebas-place-header .atrebas-subtitle {
+  font-size: small;
+  opacity: 0.625;
+}
+
+.atrebas-place-bar .atrebas-subtitle {
+  font-size: small;
+}
+
+.atrebas-place-bar revealer > scrolledwindow {
+  border-bottom: 1px solid @borders;
+}
+
+
+/*
+ * Switcher
+ */
+.atrebas-switcher > button {
+  border-radius: 0px;
+  font-weight: normal;
+  font-size: smaller;
+}
+
+.atrebas-switcher > button:checked  {
+  color: @accent_color;
+}
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<gresources>
+  <gresource prefix="/ca/andyholmes/Atrebas">
+    <file>css/atrebas.css</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-info-symbolic.svg">icons/atrebas-info-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-invisible-symbolic.svg">icons/atrebas-invisible-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-language-symbolic.svg">icons/atrebas-language-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-layers-symbolic.svg">icons/atrebas-layers-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-location.svg">icons/atrebas-location.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-location-symbolic.svg">icons/atrebas-location-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-map-symbolic.svg">icons/atrebas-map-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-spinner-symbolic.svg">icons/atrebas-spinner-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-territory-symbolic.svg">icons/atrebas-territory-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-treaty-symbolic.svg">icons/atrebas-treaty-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/atrebas-visible-symbolic.svg">icons/atrebas-visible-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-legend.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-legend-row.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-map-marker.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-map-view.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-place-bar.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-place-header.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-preferences-window.ui</file>
+    <file preprocess="xml-stripblanks">ui/atrebas-window.ui</file>
+  </gresource>
+</gresources>

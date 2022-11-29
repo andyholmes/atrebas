@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<interface>
+  <template class="AtrebasMapMarker" parent="ShumateMarker">
+    <property name="child">
+      <object class="GtkImage">
+        <property name="icon-name"
+                  bind-source="AtrebasMapMarker"
+                  bind-property="icon-name"
+                  bind-flags="bidirectional|sync-create"/>
+        <property name="pixel-size"
+                  bind-source="AtrebasMapMarker"
+                  bind-property="icon-size"
+                  bind-flags="bidirectional|sync-create"/>
+      </object>
+    </property>
+    <child>
+      <object class="GtkGestureClick">
+        <signal name="released"
+                handler="on_pointer_released"
+                object="AtrebasMapMarker"
+                swapped="no"/>
+      </object>
+    </child>
+    <style>
+      <class name="atrebas-map-marker"/>
+    </style>
+  </template>
+
+  <!-- Popover -->
+  <object class="GtkPopover" id="popover">
+    <property name="height-request">135</property>
+    <property name="width-request">180</property>
+    <property name="width-request">180</property>
+    <property name="position">top</property>
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="interpolate-size">1</property>
+        <property name="vhomogeneous">0</property>
+
+        <!-- Loading Page -->
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">load</property>
+            <property name="child">
+              <object class="GtkCenterBox">
+                <property name="margin-bottom">12</property>
+                <property name="margin-end">12</property>
+                <property name="margin-start">12</property>
+                <property name="margin-top">12</property>
+                <property name="vexpand">1</property>
+                <property name="orientation">vertical</property>
+                <child type="start">
+                  <object class="GtkImage">
+                    <property name="icon-name">atrebas-spinner-symbolic</property>
+                    <property name="pixel-size">32</property>
+                    <style>
+                      <class name="atrebas-spinner"/>
+                    </style>
+                  </object>
+                </child>
+                <child type="center">
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Loading…</property>
+                    <property name="hexpand">1</property>
+                    <property name="valign">center</property>
+                    <attributes>
+                      <attribute name="scale" value="1.2"/>
+                    </attributes>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+
+        <!-- Place Stub -->
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">info</property>
+            <property name="child">
+              <object class="AtrebasPlaceHeader">
+                <property name="orientation">vertical</property>
+                <property name="place"
+                          bind-source="AtrebasMapMarker"
+                          bind-property="place"
+                          bind-flags="sync-create"/>
+              </object>
+            </property>
+          </object>
+        </child>
+
+        <!-- Error Page -->
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">error</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="margin-bottom">12</property>
+                <property name="margin-end">12</property>
+                <property name="margin-start">12</property>
+                <property name="margin-top">12</property>
+                <property name="spacing">18</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon-name">computer-fail-symbolic</property>
+                    <property name="pixel-size">32</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="error_label">
+                    <property name="hexpand">1</property>
+                    <property name="max-width-chars">24</property>
+                    <property name="wrap">1</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="xalign">0.0</property>
+                    <style>
+                      <class name="atrebas-subtitle"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="action-name">marker.reload</property>
+                    <property name="child">
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Retry</property>
+                        <property name="margin-end">24</property>
+                        <property name="margin-start">24</property>
+                      </object>
+                    </property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="circular"/>
+                      <class name="suggested-action"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="atrebas-popover"/>
+    </style>
+  </object>
+</interface>
+

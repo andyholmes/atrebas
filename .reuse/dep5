@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: *.css *.md *ca.andyholmes.Atrebas*
+Copyright: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com>
+License: GPL-2.0-or-later
+
+Files: po/*
+Copyright: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com>
+License: GPL-2.0-or-later
+
+Files: *.json *.png *.svg *.wrap build-aux .github .gitignore .gitmodules
+Copyright: No rights reserved
+License: CC0-1.0
+

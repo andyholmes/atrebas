@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<!-- SPDX-FileCopyrightText: No rights reserved -->
+
+<component type="desktop-application">
+  <id>@application_id@.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+
+  <name>Atrebas</name>
+  <summary>Explore indigenous culture, history and territory.</summary>
+
+  <description>
+    <p>
+      Learn and explore the traditional languages, territories and treaty status
+      of indigenous peoples, supported by data from Native Land Digital.
+    </p>
+    <p>
+      Features:
+    </p>
+    <ul>
+      <li>Area maps of spoken languages, traditional territories and treaties</li>
+      <li>Notifications when entering new territory</li>
+      <li>Search languages, territories and treaties</li>
+      <li>More…</li>
+    </ul>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>View traditional territories</caption>
+      <image width="360" height="720">https://raw.githubusercontent.com/andyholmes/atrebas/main/data/metainfo/01-mapview.png</image>
+    </screenshot>
+  </screenshots>
+
+  <provides>
+    <binary>atrebas</binary>
+    <dbus type="session">@application_id@</dbus>
+  </provides>
+
+  <!-- Additional Information -->
+  <url type="homepage">https://github.com/andyholmes/atrebas</url>
+  <url type="bugtracker">https://github.com/andyholmes/atrebas/issues</url>
+  <url type="help">https://github.com/andyholmes/atrebas</url>
+  <content_rating type="oars-1.1" />
+
+  <developer_name>Andy Holmes</developer_name>
+  <update_contact>andrew.g.r.holmes@gmail.com</update_contact>
+  <translation type="gettext">@gettext_package@</translation>
+  <launchable type="desktop-id">@application_id@.desktop</launchable>
+
+  <kudos>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>ModernToolkit</kudo>
+    <kudo>Notifications</kudo>
+  </kudos>
+
+  <!-- Device Type -->
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </recommends>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
+</component>

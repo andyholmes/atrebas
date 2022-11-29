@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<interface>
+  <template class="AtrebasLegend" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <property name="margin-bottom">8</property>
+        <property name="margin-end">12</property>
+        <property name="margin-start">12</property>
+        <property name="margin-top">8</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkButton">
+            <property name="child">
+              <object class="GtkImage">
+                <property name="icon-name">atrebas-language-symbolic</property>
+                <property name="pixel-size">24</property>
+              </object>
+            </property>
+            <style>
+              <class name="atrebas-language"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="child">
+              <object class="GtkImage">
+                <property name="icon-name">atrebas-territory-symbolic</property>
+                <property name="pixel-size">24</property>
+              </object>
+            </property>
+            <style>
+              <class name="atrebas-territory"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="child">
+              <object class="GtkImage">
+                <property name="icon-name">atrebas-treaty-symbolic</property>
+                <property name="pixel-size">24</property>
+              </object>
+            </property>>
+            <style>
+              <class name="atrebas-treaty"/>
+            </style>
+          </object>
+        </child>
+        <style>
+          <class name="atrebas-culture-actions"/>
+        </style>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="hscrollbar-policy">never</property>
+        <property name="propagate-natural-height">1</property>
+        <property name="vexpand">1</property>
+        <property name="child">
+          <object class="GtkViewport">
+            <property name="scroll-to-focus">1</property>
+            <property name="child">
+              <object class="GtkListBox" id="layer_list">
+                <property name="selection-mode">none</property>
+                <property name="show-separators">1</property>
+                <child type="placeholder">
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">atrebas-layers-symbolic</property>
+                    <property name="title" translatable="yes">Legend</property>
+                    <property name="description" translatable="yes">No features available</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkBox">
+        <property name="margin-bottom">8</property>
+        <property name="margin-end">12</property>
+        <property name="margin-start">12</property>
+        <property name="margin-top">8</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="yes">Language regions have dotted borders</property>
+            <style>
+              <class name="atrebas-language"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="yes">Traditional territories have dashed borders</property>
+            <style>
+              <class name="atrebas-territory"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="yes">Treaty regions have solid borders</property>
+            <style>
+              <class name="atrebas-treaty"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="view"/>
+    </style>
+  </template>
+</interface>
+

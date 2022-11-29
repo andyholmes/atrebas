@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<schemalist gettext-domain="atrebas">
+  <schema id="ca.andyholmes.Atrebas" path="/ca/andyholmes/Atrebas/">
+    <key name="background" type="b">
+      <default>true</default>
+      <summary>Run in background</summary>
+      <description>Continue running in the background after the main window is closed</description>
+    </key>
+    <key name="bookmarks" type="aa{sv}">
+      <default>[]</default>
+      <summary>Bookmarks</summary>
+      <description>Favourite places and locations.</description>
+    </key>
+    <key name="last-position" type="(ddd)">
+      <default>(0.0, 0.0, 0.0)</default>
+      <summary>Last Position</summary>
+      <description>The last latitude, longitude and zoom level the map displayed.</description>
+    </key>
+    <key name="location-services" type="b">
+      <default>true</default>
+      <summary>Location</summary>
+      <description>Use location services.</description>
+    </key>
+    <key name="notifications" type="b">
+      <default>true</default>
+      <summary>Notification</summary>
+      <description>Notify when entering the traditional territory of an indigenous people.</description>
+    </key>
+  </schema>
+</schemalist>

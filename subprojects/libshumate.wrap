@@ -1,0 +1,5 @@
+[wrap-git]
+directory=libshumate
+url=https://gitlab.gnome.org/GNOME/libshumate.git
+revision=main
+depth=1

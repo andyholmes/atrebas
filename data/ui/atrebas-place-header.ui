@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<interface>
+  <template class="AtrebasPlaceHeader" parent="GtkBox">
+    <property name="margin-bottom">8</property>
+    <property name="margin-end">12</property>
+    <property name="margin-start">12</property>
+    <property name="margin-top">8</property>
+    <property name="spacing">12</property>
+    <child>
+      <object class="GtkBox" id="content">
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkImage" id="icon_image">
+            <property name="icon-name">atrebas-location-symbolic</property>
+            <property name="pixel-size">24</property>
+            <property name="valign">center</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="title_label">
+                <property name="hexpand">1</property>
+                <property name="wrap">1</property>
+                <property name="xalign">0.0</property>
+                <style>
+                  <class name="atrebas-title"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="subtitle_label">
+                <property name="hexpand">1</property>
+                <property name="wrap">1</property>
+                <property name="xalign">0.0</property>
+                <style>
+                  <class name="atrebas-subtitle"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="actions">
+        <property name="halign">end</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkToggleButton" id="bookmark_button">
+            <property name="action-name">place.bookmark</property>
+            <property name="icon-name">emblem-favorite-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Add Bookmark</property>
+            <property name="valign">center</property>
+            <property name="visible"
+                      bind-source="bookmark_button"
+                      bind-property="sensitive"
+                      bind-flags="sync-create"/>
+            <style>
+              <class name="flat"/>
+              <class name="atrebas-favorite"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="locate_button">
+            <property name="action-name">place.locate</property>
+            <property name="icon-name">find-location-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Center in Map</property>
+            <property name="valign">center</property>
+            <property name="visible"
+                      bind-source="locate_button"
+                      bind-property="sensitive"
+                      bind-flags="sync-create"/>
+            <style>
+              <class name="circular"/>
+              <class name="flat"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="atrebas-place-header"/>
+    </style>
+  </template>
+</interface>
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16.003"
+   height="16"
+   version="1.1"
+   id="svg7636"
+   sodipodi:docname="atrebas-language-symbolic.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs7640" />
+  <sodipodi:namedview
+     id="namedview7638"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="true"
+     inkscape:zoom="48.5"
+     inkscape:cx="8.2989691"
+     inkscape:cy="7.7731959"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7636">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7699" />
+  </sodipodi:namedview>
+  <path
+     d="M 5,5 C 2.3333345,5 2.3333345,9 5,9 7.6666655,9 7.6666655,5 5,5 Z M 8,3 v 5 l 2,-2 h 3 c 1,0 2,-1 2,-2 V 3 C 15,2 14,1 13,1 H 10 C 9,1 8,2 8,3 Z m -4,7 c -1.662,0 -3,1.338 -3,3 v 1 c 0,0.554 0.446,1 1,1 h 6 c 0.554,0 1,-0.446 1,-1 V 13 C 9,11.338 7.662,10 6,10 Z"
+     style="fill:#2e3436;marker:none"
+     color="#bebebe"
+     overflow="visible"
+     id="path7630"
+     sodipodi:nodetypes="ssscccccccccsssssssss" />
+</svg>
