@@ -1,0 +1,6 @@
+*~
+_build*
+
+# meson wraps
+subprojects/libportal/
+subprojects/libshumate/

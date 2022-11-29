@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<interface>
+  <template class="AtrebasLegendRow" parent="GtkListBoxRow">
+    <property name="activatable">0</property>
+    <child>
+      <object class="GtkBox">
+        <property name="margin-bottom">3</property>
+        <property name="margin-end">6</property>
+        <property name="margin-start">6</property>
+        <property name="margin-top">3</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="AtrebasLegendSymbol" id="legend_symbol">
+            <property name="height-request">16</property>
+            <property name="width-request">16</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="flat"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="theme_image">
+            <property name="icon-name">atrebas-map-symbolic</property>
+            <property name="pixel-size">16</property>
+            <property name="valign">center</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="name_label">
+            <property name="halign">start</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <property name="valign">center</property>
+            <property name="wrap">1</property>
+            <property name="xalign">0.0</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkToggleButton" id="bookmark_button">
+                <property name="action-name">place.bookmark</property>
+                <property name="icon-name">emblem-favorite-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Add Bookmark</property>
+                <property name="valign">center</property>
+                <property name="visible"
+                          bind-source="bookmark_button"
+                          bind-property="sensitive"
+                          bind-flags="sync-create"/>
+                <style>
+                  <class name="flat"/>
+                  <class name="atrebas-favorite"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="layer_button">
+                <property name="icon-name">atrebas-invisible-symbolic</property>
+                <property name="valign">center</property>
+                <signal name="notify::active"
+                        handler="on_active_changed"
+                        object="AtrebasLegendRow"
+                        swapped="no"/>
+                <style>
+                  <class name="flat"/>
+                  <class name="atrebas-visible"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
+

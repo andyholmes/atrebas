@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-FileCopyrightText: 2022 Andy Holmes
+
+#
+# Known Bugs
+#
+
+# This seems to be a false positive related to GAsyncQueue, where TSan doesn't
+# recognize ownership being transferred between threads.
+race:atrebas_backend_thread
+
+# https://gitlab.gnome.org/GNOME/glib/-/issues/541
+mutex:atrebas_*_get_type_once
+
+
+#
+# Uninstrumented libraries (core, components, ui, plugins)
+#
+called_from_lib:libglib-2
+called_from_lib:libgobject-2
+called_from_lib:libgio-2
+called_from_lib:libjson-glib-1
+called_from_lib:libsqlite3
+
+called_from_lib:libgdk-4
+called_from_lib:libgdk_pixbuf-2
+called_from_lib:libgsk-4
+called_from_lib:libgtk-4
+called_from_lib:libadwaita-1
+
+# Indirect dependencies
+called_from_lib:libcairo.so
+called_from_lib:libfontconfig
+called_from_lib:libmedia-gstreamer.so
+called_from_lib:libpango-1
+called_from_lib:libpangocairo-1
+called_from_lib:libpangoft2

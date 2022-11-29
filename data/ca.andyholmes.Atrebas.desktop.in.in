@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Atrebas
+Comment=Our Home on Native Land
+Keywords=maps;
+Exec=atrebas
+Icon=@application_id@
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;
+StartupNotify=true
+DBusActivatable=true
+
+X-GNOME-UsesNotifications=true
+X-Geoclue-Reason=Allows your location to be found in traditional territories.
+MimeType=x-scheme-handler/geo;
+
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;

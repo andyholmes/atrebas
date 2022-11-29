@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<!-- SPDX-FileCopyrightText: 2022 Andy Holmes <andrew.g.r.holmes@gmail.com> -->
+
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="AtrebasMapView" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkOverlay">
+        <property name="height-request">360</property>
+        <property name="width-request">360</property>
+        <child>
+          <object class="ShumateMap" id="map">
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <child>
+              <object class="GtkGestureClick">
+                <signal name="released"
+                        handler="on_pointer_released"
+                        object="AtrebasMapView"
+                        swapped="no"/>
+                <signal name="stopped"
+                        handler="on_pointer_stopped"
+                        object="AtrebasMapView"
+                        swapped="no"/>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- License
+
+             The license is kept on a dedicated overlay, attached to a size
+             group with the place bar to ensure it's always visible.
+          -->
+        <child type="overlay">
+          <object class="GtkBox" id="license">
+            <property name="orientation">vertical</property>
+            <property name="halign">end</property>
+            <property name="hexpand">1</property>
+            <property name="valign">end</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">© &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors</property>
+                <property name="use-markup">1</property>
+                <property name="xalign">0.0</property>
+                <style>
+                  <class name="atrebas-license"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="placebar_buffer"/>
+            </child>
+          </object>
+        </child>
+
+        <!-- Place Bar -->
+        <child type="overlay">
+          <object class="GtkRevealer" id="placebar_revealer">
+            <property name="reveal-child"
+                      bind-source="AtrebasMapView"
+                      bind-property="compact"
+                      bind-flags="sync-create|bidirectional"/>
+            <property name="valign">end</property>
+            <child>
+              <object class="AtrebasPlaceBar" id="placebar"/>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="atrebas-map"/>
+    </style>
+  </template>
+  <object class="GtkSizeGroup">
+    <property name="mode">vertical</property>
+    <widgets>
+      <widget name="placebar_revealer"/>
+      <widget name="placebar_buffer"/>
+    </widgets>
+  </object>
+  <menu id="context-menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">What's Here?</attribute>
+        <attribute name="verb-icon">find-location-symbolic</attribute>
+        <attribute name="action">view.center</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Bookmark</attribute>
+        <attribute name="verb-icon">emblem-favorite-symbolic</attribute>
+        <attribute name="action">view.share</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Share this map</attribute>
+        <attribute name="verb-icon">emblem-shared-symbolic</attribute>
+        <attribute name="action">view.share</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

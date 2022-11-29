@@ -1,0 +1,103 @@
+{
+    "app-id" : "ca.andyholmes.Atrebas",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "43",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "atrebas",
+    "finish-args" : [
+        "--device=dri",
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland"
+    ],
+    "modules" : [
+    	{
+            "name": "libgeoclue",
+            "buildsystem": "meson",
+            "config-opts" : [
+                "-Denable-backend=false",
+                "-Dlibgeoclue=true",
+                "-Dintrospection=true",
+                "-Dgtk-doc=false"
+            ],
+            "sources": [
+                {
+                    "type" : "git",
+                    "url": "https://gitlab.freedesktop.org/geoclue/geoclue.git",
+                    "commit": "10998ca3215fb6d21b5a32fdf78bb5feffaf4c0f",
+                    "tag": "2.6.0"
+                }
+            ]
+        },
+        {
+            "name" : "geocode-glib",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Denable-gtk-doc=false",
+                "-Denable-installed-tests=false",
+                "-Denable-introspection=false",
+                "-Dsoup2=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/geocode-glib.git",
+                    "branch" : "master"
+                }
+            ]
+        },
+        {
+            "name" : "libportal",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "-Dbackends=gtk4",
+                "-Ddocs=false",
+                "-Dintrospection=false",
+                "-Dvapi=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/flatpak/libportal.git",
+                    "commit" : "13df0b887a7eb7b0f9b14069561a41f62e813155",
+                    "tag" : "0.6"
+                }
+            ]
+        },
+        {
+            "name" : "libshumate",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgir=false",
+                "-Dvapi=false",
+                "-Dgtk_doc=false",
+                "-Dvector_renderer=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libshumate.git",
+                    "branch" : "main"
+                }
+            ]
+        },
+        {
+            "name" : "atrebas",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "--buildtype=release",
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/andyholmes/atrebas.git",
+                    "branch" : "main"
+                }
+            ]
+        }
+    ]
+}

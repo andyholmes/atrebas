@@ -1,0 +1,240 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  codespell:
+    name: Codespell
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Spell Check
+        uses: codespell-project/actions-codespell@master
+        with:
+          skip: ./data/maps,./tests/data,./subprojects,./*.po
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint
+        uses: wagoid/commitlint-github-action@v5
+
+  reuse:
+    name: REUSE Compliance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Lint
+        uses: fsfe/reuse-action@v1
+        with:
+          args: lint
+
+  pre-test:
+    name: Pre-Tests
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: false
+
+      - name: ShellCheck
+        if: ${{ always() }}
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          reporter: github-pr-review
+          fail_on_error: true
+
+  build:
+    name: Build (Documentation)
+    needs: [pre-test]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:${{ github.base_ref }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Build
+        run: |
+          meson setup --buildtype=release \
+                      _build
+          meson compile -C _build
+
+  analyze:
+    name: Static Analysis
+    needs: [pre-test]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:${{ github.base_ref }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: cppcheck
+        env:
+          ACTUARY_SUITE: cppcheck
+          ACTUARY_SETUP_ARGS: '-Dtests=true'
+        run: |
+          actuary
+
+      - name: Report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Static Analysis (${{ matrix.suite }})
+          path: _build/meson-logs
+
+  test:
+    name: Tests
+    needs: [pre-test]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:${{ github.base_ref }}
+
+    strategy:
+      matrix:
+        compiler: [gcc, llvm]
+        suite: [test, asan, tsan, analyzer]
+        include:
+          - suite: test
+            setup_args: '-Dtests=true'
+            test_args: '--repeat=3'
+          - suite: asan
+            setup_args: '-Dtests=true'
+          - suite: tsan
+            setup_args: '-Dtests=true'
+          - suite: analyzer
+            setup_args: '-Dtests=true'
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Test
+        env:
+          ACTUARY_COMPILER: ${{ matrix.compiler }}
+          ACTUARY_SUITE: ${{ matrix.suite }}
+          ACTUARY_SETUP_COVERAGE: ${{ matrix.compiler == 'gcc' && matrix.suite == 'test' }}
+          ACTUARY_SETUP_ARGS: ${{ matrix.setup_args }}
+          ACTUARY_TEST_ARGS: ${{ matrix.test_args }}
+        run: |
+          actuary
+
+      - name: Test Report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Tests (${{ matrix.compiler }}, ${{ matrix.suite }})
+          path: _build/meson-logs/testlog.txt
+
+      - name: Coverage (lcov)
+        if: ${{ matrix.compiler == 'gcc' && matrix.suite == 'test' }}
+        env:
+          ACTUARY_SUITE: lcov
+          ACTUARY_LCOV_INCLUDE_PATH: '${{ github.workspace }}/src/*'
+          ACTUARY_LCOV_EXCLUDE_PATH: '*/tests/* */subprojects/*'
+        run: |
+          actuary
+
+      - name: Coverage (coveralls.io)
+        if: ${{ matrix.compiler == 'gcc' && matrix.suite == 'test' }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/_build/meson-logs/coverage.info
+
+  flatpak:
+    name: Tests (Flatpak)
+    needs: [pre-test]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/andyholmes/flatter/gnome:43
+      options: --privileged
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup GPG
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Build
+        uses: andyholmes/flatter@main
+        with:
+          files: |
+            build-aux/flatpak/ca.andyholmes.Valent.json
+          gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
+          run-tests: true
+          test-config-opts: |
+            --buildtype=debugoptimized
+            -Dtests=true
+          test-modules: |
+            ca.andyholmes.Valent.Tests.json
+          upload-bundles: true
+
+  flatpak-unstable:
+    name: Tests (Flatpak Unstable)
+    needs: [pre-test]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/andyholmes/flatter/gnome:master
+      options: --privileged
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup GPG
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Build
+        uses: andyholmes/flatter@main
+        with:
+          files: |
+            build-aux/flatpak/ca.andyholmes.Valent.Devel.json
+          gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
+          run-tests: true
+          upload-bundles: true
