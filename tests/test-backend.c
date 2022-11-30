@@ -117,7 +117,7 @@ parameter_boolean (gboolean value)
   GValue *ret;
 
   ret = g_new0 (GValue, 1);
-  g_value_init (ret, G_TYPE_STRING);
+  g_value_init (ret, G_TYPE_BOOLEAN);
   g_value_set_boolean (ret, value);
 
   return ret;

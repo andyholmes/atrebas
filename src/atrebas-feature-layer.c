@@ -25,16 +25,16 @@
 
 struct _AtrebasFeatureLayer
 {
-  ShumateLayer  parent_instance;
+  ShumateLayer    parent_instance;
 
-  AtrebasFeature   *feature;
-  AtrebasPoint     *coordinates;
-  unsigned int  n_points;
+  AtrebasFeature *feature;
+  AtrebasPoint   *coordinates;
+  unsigned int    n_points;
 
-  double        border[BORDER_NUM];
-  GdkRGBA       fill_color;
-  GdkRGBA       stroke_color;
-  double        stroke_width;
+  double          border[BORDER_NUM];
+  GdkRGBA         fill_color;
+  GdkRGBA         stroke_color;
+  double          stroke_width;
 };
 
 G_DEFINE_TYPE (AtrebasFeatureLayer, atrebas_feature_layer, SHUMATE_TYPE_LAYER);
