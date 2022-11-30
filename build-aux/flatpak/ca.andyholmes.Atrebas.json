@@ -48,25 +48,6 @@
             ]
         },
         {
-            "name" : "libportal",
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "config-opts" : [
-                "-Dbackends=gtk4",
-                "-Ddocs=false",
-                "-Dintrospection=false",
-                "-Dvapi=false"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/flatpak/libportal.git",
-                    "commit" : "13df0b887a7eb7b0f9b14069561a41f62e813155",
-                    "tag" : "0.6"
-                }
-            ]
-        },
-        {
             "name" : "libshumate",
             "buildsystem" : "meson",
             "config-opts" : [

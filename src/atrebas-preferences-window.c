@@ -19,7 +19,7 @@ struct _AtrebasPreferencesWindow
   /* Template widgets */
   GtkWidget            *general_page;
   GtkWidget            *background_switch;
-  GtkWidget            *location_switch;
+  AdwExpanderRow       *location_row;
   GtkWidget            *notification_switch;
 };
 
@@ -50,7 +50,7 @@ atrebas_preferences_window_class_init (AtrebasPreferencesWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/ca/andyholmes/Atrebas/ui/atrebas-preferences-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AtrebasPreferencesWindow, general_page);
   gtk_widget_class_bind_template_child (widget_class, AtrebasPreferencesWindow, background_switch);
-  gtk_widget_class_bind_template_child (widget_class, AtrebasPreferencesWindow, location_switch);
+  gtk_widget_class_bind_template_child (widget_class, AtrebasPreferencesWindow, location_row);
   gtk_widget_class_bind_template_child (widget_class, AtrebasPreferencesWindow, notification_switch);
 }
 
@@ -65,7 +65,7 @@ atrebas_preferences_window_init (AtrebasPreferencesWindow *self)
                    self->background_switch, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->settings,        "location-services",
-                   self->location_switch, "active",
+                   self->location_row,    "enable-expansion",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->settings,            "notifications",
                    self->notification_switch, "active",

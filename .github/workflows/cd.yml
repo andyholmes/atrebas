@@ -1,0 +1,96 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  report:
+    name: Deploy
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:${{ github.ref_name}}
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Build
+        env:
+          ACTUARY_SUITE: lcov
+          ACTUARY_SETUP_ARGS: '-Dtests=true'
+          ACTUARY_LCOV_INCLUDE_PATH: '${{ github.workspace }}/src/*'
+          ACTUARY_LCOV_EXCLUDE_PATH: '*/tests/* */subprojects/*'
+        run: |
+          actuary
+
+      - name: Report
+        continue-on-error: true
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/_build/meson-logs/coverage.info
+
+      - name: Coverage
+        continue-on-error: true
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          folder: _build/meson-logs/coverage-html
+          target-folder: coverage
+          single-commit: true
+
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/andyholmes/flatter/gnome:43
+      options: --privileged
+    permissions:
+      contents: write
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        arch: [x86_64, aarch64]
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup QEMU
+        if: ${{ matrix.arch == 'aarch64' }}
+        id: qemu
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Setup GPG
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Build
+        id: build
+        uses: andyholmes/flatter@main
+        with:
+          files: |
+            build-aux/flatpak/ca.andyholmes.Atrebas.json
+          arch: ${{ matrix.arch }}
+          gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
+          upload-bundles: true
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          folder: ${{ steps.build.outputs.repository }}
+          target-folder: repo
+          single-commit: true

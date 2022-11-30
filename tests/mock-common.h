@@ -46,11 +46,11 @@ static inline GeocodeBackend *
 
   loop = g_main_loop_new (NULL, FALSE);
   atrebas_backend_load (ATREBAS_BACKEND (backend),
-                    TEST_DATA_DIR"/testFeatureCollection.json",
-                    ATREBAS_MAP_THEME_TERRITORY,
-                    NULL,
-                    (GAsyncReadyCallback)test_get_backend_cb,
-                    loop);
+                        TEST_DATA_DIR"/testFeatureCollection.json",
+                        ATREBAS_MAP_THEME_TERRITORY,
+                        NULL,
+                        (GAsyncReadyCallback)test_get_backend_cb,
+                        loop);
   g_main_loop_run (loop);
 
   return backend;
@@ -112,14 +112,15 @@ atrebas_test_mute_domain (const char     *log_domain,
  *        stripped before return.
  * @...: currently unused
  *
- * This function is used to initialize a GUI test program for Atrebas.
+ * This function is used to initialize a GUI test program for Valent.
  *
  * In order, it will:
- * - Call g_test_init() passing @argcp, @argvp and %G_TEST_OPTION_ISOLATE_DIRS
+ * - Call g_content_type_set_mime_dirs() to ensure GdkPixbuf works
+ * - Call g_test_init() with the %G_TEST_OPTION_ISOLATE_DIRS option
+ * - Call g_type_ensure() for public classes
  * - Set the locale to “en_US.UTF-8”
  * - Call gtk_init()
  * - Call adw_init()
- * - Call g_type_ensure() for each widget
  *
  * Like g_test_init(), any known arguments will be processed and stripped from
  * @argcp and @argvp.
@@ -127,16 +128,29 @@ atrebas_test_mute_domain (const char     *log_domain,
 static inline void
 test_ui_init (int    *argcp,
               char ***argvp,
-                      ...)
+              ...)
 {
+  g_content_type_set_mime_dirs (NULL);
   g_test_init (argcp, argvp, G_TEST_OPTION_ISOLATE_DIRS, NULL);
+
+  g_type_ensure (ATREBAS_TYPE_BACKEND);
+  g_type_ensure (ATREBAS_TYPE_FEATURE);
+  g_type_ensure (ATREBAS_TYPE_SEARCH_MODEL);
+  g_type_ensure (ATREBAS_TYPE_BOOKMARKS);
+  g_type_ensure (ATREBAS_TYPE_FEATURE_LAYER);
+  g_type_ensure (ATREBAS_TYPE_LEGEND);
+  g_type_ensure (ATREBAS_TYPE_LEGEND_ROW);
+  g_type_ensure (ATREBAS_TYPE_LEGEND_SYMBOL);
+  g_type_ensure (ATREBAS_TYPE_MAP_MARKER);
+  g_type_ensure (ATREBAS_TYPE_MAP_VIEW);
+  g_type_ensure (ATREBAS_TYPE_PLACE_BAR);
+  g_type_ensure (ATREBAS_TYPE_PLACE_HEADER);
+  g_type_ensure (ATREBAS_TYPE_PREFERENCES_WINDOW);
+  g_type_ensure (ATREBAS_TYPE_WINDOW);
 
   gtk_disable_setlocale ();
   setlocale (LC_ALL, "en_US.UTF-8");
-
-  /* Mute errors from libadwaita while initializing */
-  g_test_log_set_fatal_handler (atrebas_test_mute_domain, "Adwaita");
-  atrebas_ui_init ();
-  g_test_log_set_fatal_handler (NULL, NULL);
+  gtk_init ();
+  adw_init ();
 }
 

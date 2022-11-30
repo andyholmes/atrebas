@@ -103,12 +103,24 @@ test_backend_load (void)
   GeocodeBackend *backend = atrebas_backend_get_default ();
 
   atrebas_backend_load (ATREBAS_BACKEND (backend),
-                    TEST_DATA_DIR"/testFeatureCollection.json",
-                    ATREBAS_MAP_THEME_TERRITORY,
-                    NULL,
-                    (GAsyncReadyCallback)load_cb,
-                    NULL);
+                        TEST_DATA_DIR"/testFeatureCollection.json",
+                        ATREBAS_MAP_THEME_TERRITORY,
+                        NULL,
+                        (GAsyncReadyCallback)load_cb,
+                        NULL);
   task_wait;
+}
+
+static inline GValue *
+parameter_boolean (gboolean value)
+{
+  GValue *ret;
+
+  ret = g_new0 (GValue, 1);
+  g_value_init (ret, G_TYPE_STRING);
+  g_value_set_boolean (ret, value);
+
+  return ret;
 }
 
 static inline GValue *
@@ -135,18 +147,18 @@ test_backend_operations (void)
   GError *error = NULL;
 
   atrebas_backend_load (ATREBAS_BACKEND (backend),
-                    TEST_DATA_DIR"/testFeatureCollection.json",
-                    ATREBAS_MAP_THEME_TERRITORY,
-                    NULL,
-                    (GAsyncReadyCallback)load_cb,
-                    NULL);
+                        TEST_DATA_DIR"/testFeatureCollection.json",
+                        ATREBAS_MAP_THEME_TERRITORY,
+                        NULL,
+                        (GAsyncReadyCallback)load_cb,
+                        NULL);
   task_wait;
 
   /* Geocode Parameters */
   bounded_params = atrebas_geocode_parameters_for_location ("Zacateco");
   g_hash_table_insert (bounded_params,
                        (gpointer)"bounded",
-                       parameter_string ("1"));
+                       parameter_boolean (TRUE));
   g_hash_table_insert (bounded_params,
                        (gpointer)"viewbox",
                        parameter_string ("-102.56,22.78,-102.57,22.77"));
@@ -192,10 +204,10 @@ test_backend_operations (void)
 
   /* Custom operations */
   atrebas_backend_lookup (ATREBAS_BACKEND (backend),
-                      "1a06d1f9693a307ce18e674a7fb94d59",
-                      NULL,
-                      (GAsyncReadyCallback)lookup_cb,
-                      NULL);
+                          "1a06d1f9693a307ce18e674a7fb94d59",
+                          NULL,
+                          (GAsyncReadyCallback)lookup_cb,
+                          NULL);
   task_wait;
 }
 

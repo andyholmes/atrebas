@@ -19,6 +19,7 @@ jobs:
       - name: Spell Check
         uses: codespell-project/actions-codespell@master
         with:
+          ignore_words_list: inout
           skip: ./data/maps,./tests/data,./subprojects,./*.po
 
   commitlint:
@@ -199,14 +200,12 @@ jobs:
         uses: andyholmes/flatter@main
         with:
           files: |
-            build-aux/flatpak/ca.andyholmes.Valent.json
+            build-aux/flatpak/ca.andyholmes.Atrebas.json
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
           run-tests: true
           test-config-opts: |
             --buildtype=debugoptimized
             -Dtests=true
-          test-modules: |
-            ca.andyholmes.Valent.Tests.json
           upload-bundles: true
 
   flatpak-unstable:
@@ -234,7 +233,7 @@ jobs:
         uses: andyholmes/flatter@main
         with:
           files: |
-            build-aux/flatpak/ca.andyholmes.Valent.Devel.json
+            build-aux/flatpak/ca.andyholmes.Atrebas.Devel.json
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
           run-tests: true
           upload-bundles: true

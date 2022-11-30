@@ -489,13 +489,11 @@ backend_query_new (GHashTable *parameters)
 
   /* A custom Geocode parameter; defines whether the search results are
    * restricted to a specific area.
-   *
-   * TODO: https://gitlab.gnome.org/GNOME/geocode-glib/-/issues/25
    */
   if ((value = g_hash_table_lookup (parameters, "bounded")) != NULL &&
-      G_VALUE_HOLDS_STRING (value))
+      G_VALUE_HOLDS_BOOLEAN (value))
     {
-      query->bounded = g_str_equal (g_value_get_string (value), "1");
+      query->bounded = g_value_get_boolean (value);
 
       if ((value = g_hash_table_lookup (parameters, "viewbox")) != NULL &&
           G_VALUE_HOLDS_STRING (value))
@@ -573,8 +571,8 @@ atrebas_backend_get_feature_step (sqlite3_stmt  *stmt,
 
 static inline gboolean
 atrebas_backend_set_feature_step (sqlite3_stmt  *stmt,
-                              JsonObject    *feature,
-                              GError       **error)
+                                  JsonObject    *feature,
+                                  GError       **error)
 {
   int rc;
   JsonObject *props;
@@ -647,10 +645,10 @@ atrebas_backend_set_feature_step (sqlite3_stmt  *stmt,
 }
 
 static inline gboolean
-atrebas_backend_bounded_feature_step (sqlite3_stmt  *stmt,
-                                  BackendQuery  *query,
-                                  AtrebasFeature   **feature,
-                                  GError       **error)
+atrebas_backend_bounded_feature_step (sqlite3_stmt    *stmt,
+                                      BackendQuery    *query,
+                                      AtrebasFeature **feature,
+                                      GError         **error)
 {
   int rc;
   const char *coordinates_text;
@@ -702,10 +700,10 @@ atrebas_backend_bounded_feature_step (sqlite3_stmt  *stmt,
 }
 
 static inline gboolean
-atrebas_backend_locate_feature_step (sqlite3_stmt  *stmt,
-                                 BackendQuery  *query,
-                                 AtrebasFeature   **feature,
-                                 GError       **error)
+atrebas_backend_locate_feature_step (sqlite3_stmt    *stmt,
+                                     BackendQuery    *query,
+                                     AtrebasFeature **feature,
+                                     GError         **error)
 {
   int rc;
   const char *coordinates_text;
@@ -920,8 +918,16 @@ atrebas_backend_load_features (AtrebasBackend   *self,
   for (unsigned int i = 0; i < n_features; i++)
     {
       JsonObject *feature = json_array_get_object_element (features, i);
-      JsonObject *props;
+      JsonObject *props, *geometry;
+      const char *geo_type = NULL;
       g_autoptr (GError) warn = NULL;
+
+      // FIXME: support Polygon, MultiPolygon, Point, ...
+      geometry = json_object_get_object_member (feature, "geometry");
+      geo_type = json_object_get_string_member (geometry, "type");
+
+      if (geo_type == NULL || strcmp (geo_type, "Polygon") != 0)
+        continue;
 
       props = json_object_get_object_member (feature, "properties");
       json_object_set_int_member (props, "theme", theme);

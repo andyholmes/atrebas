@@ -26,10 +26,8 @@ MAJOR_VERSION = version_split[0].to_int()
 MINOR_VERSION = version_split[1].to_int()
 MICRO_VERSION = version_split[2].to_int()
 
-atrebas_api_version = '@0@'.format(atrebas_version.split('.')[0].to_int())
-atrebas_api_name = 'atrebas-@0@'.format(atrebas_api_version)
 
-#
+
 # Build Profile
 #
 profile = get_option('profile')
@@ -179,18 +177,6 @@ libsoup_dep = dependency('libsoup-3.0', version: '>= 3.0')
 sqlite_dep = dependency('sqlite3', version: '>= 3.24')
 
 # Subprojects
-libportal_dep = dependency('libportal',
-          version: ['>= 0.5', '<= 0.6'],
-         fallback: ['libportal', 'libportal_dep'],
-  default_options: [
-    'backends=gtk4',
-    'docs=false',
-    'introspection=false',
-    'vapi=false',
-    'werror=false',
-  ],
-)
-
 libshumate_dep = dependency('shumate-1.0',
           version: '>= 1.0.0',
          fallback: ['libshumate', 'libshumate_dep'],
@@ -217,3 +203,4 @@ gnome.post_install(
   gtk_update_icon_cache: true,
   update_desktop_database: true,
 )
+

@@ -64,11 +64,11 @@ atrebas_deps = [
   sqlite_dep,
 ]
 
-libatrebas = static_library('libatrebas-' + atrebas_api_version,
-                           atrebas_sources,
-                           atrebas_headers,
-                           atrebas_enums,
-                           atrebas_resources,
+libatrebas = static_library('libatrebas',
+                            atrebas_sources,
+                            atrebas_headers,
+                            atrebas_enums,
+                            atrebas_resources,
                c_args: atrebas_c_args + release_args + ['-DATREBAS_COMPILATION'],
             link_args: atrebas_link_args,
          dependencies: atrebas_deps,

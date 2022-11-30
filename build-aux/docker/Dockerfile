@@ -17,7 +17,6 @@ RUN dnf install -y 'dnf-command(copr)' && \
         gtk4-devel          gtk4-debuginfo \
         json-glib-devel     json-glib-debuginfo \
         libadwaita-devel    libadwaita-debuginfo \
-        libportal-devel     libportal-debuginfo \
         libshumate-devel    libshumate-debuginfo \
         libsoup3-devel      libsoup3-debuginfo \
         protobuf-c-devel    protobuf-c-debuginfo \

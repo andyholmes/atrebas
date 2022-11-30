@@ -14,24 +14,55 @@ mutex:atrebas_*_get_type_once
 
 
 #
-# Uninstrumented libraries (core, components, ui, plugins)
+# Uninstrumented libraries (Yes, all of these are really necessary)
 #
-called_from_lib:libglib-2
-called_from_lib:libgobject-2
-called_from_lib:libgio-2
-called_from_lib:libjson-glib-1
-called_from_lib:libsqlite3
 
-called_from_lib:libgdk-4
-called_from_lib:libgdk_pixbuf-2
-called_from_lib:libgsk-4
-called_from_lib:libgtk-4
+# GTK
 called_from_lib:libadwaita-1
-
-# Indirect dependencies
 called_from_lib:libcairo.so
 called_from_lib:libfontconfig
+called_from_lib:libgdk_pixbuf-2
+called_from_lib:libgtk-4
 called_from_lib:libmedia-gstreamer.so
 called_from_lib:libpango-1
 called_from_lib:libpangocairo-1
 called_from_lib:libpangoft2
+called_from_lib:librsvg-2
+called_from_lib:libxml2
+
+# Shumate
+called_from_lib:libprotobuf
+called_from_lib:libsqlite3
+
+# GLib
+called_from_lib:libglib-2
+called_from_lib:libgobject-2
+called_from_lib:libgio-2
+called_from_lib:libgnutls
+called_from_lib:libgvfscommon
+called_from_lib:libgvfsdbus
+
+# X.org
+called_from_lib:libX11.so
+called_from_lib:libX11-xcb
+called_from_lib:libXau
+called_from_lib:libxcb.so
+called_from_lib:libXcomposite
+called_from_lib:libXcursor
+called_from_lib:libXdamage
+called_from_lib:libXdmcp
+called_from_lib:libXext
+called_from_lib:libXfixes
+called_from_lib:libXi.so
+called_from_lib:libXrandr
+called_from_lib:libXrender
+called_from_lib:libXss
+
+# Graphics Libraries
+deadlock:libEGL
+deadlock:libGLX
+mutex:libEGL
+mutex:libGLX
+race:libEGL
+race:libGLX
+race:radeonsi_dri

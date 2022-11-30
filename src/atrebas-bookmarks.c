@@ -164,24 +164,22 @@ atrebas_bookmarks_serialize_place (GeocodePlace *place)
   longitude = geocode_location_get_longitude (location);
   accuracy = geocode_location_get_accuracy (location);
 
-  g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
-  g_variant_builder_add (&builder, "{sv}", "name", g_variant_new_string (name));
-  g_variant_builder_add (&builder, "{sv}", "latitude", g_variant_new_double (latitude));
-  g_variant_builder_add (&builder, "{sv}", "longitude", g_variant_new_double (longitude));
-  g_variant_builder_add (&builder, "{sv}", "accuracy", g_variant_new_double (accuracy));
+  g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+  g_variant_builder_add_parsed (&builder, "{'name', <%s>}", name);
+  g_variant_builder_add_parsed (&builder, "{'latitude', <%d>}", latitude);
+  g_variant_builder_add_parsed (&builder, "{'longitude', <%d>}", longitude);
+  g_variant_builder_add_parsed (&builder, "{'accuracy', <%d>}", accuracy);
 
   if (ATREBAS_IS_FEATURE (place))
     {
       AtrebasFeature *feature = ATREBAS_FEATURE (place);
-      GVariant *value = g_variant_new_string (atrebas_feature_get_nld_id (feature));
 
-      g_variant_builder_add (&builder, "{sv}", "nld-id", value);
+      g_variant_builder_add_parsed (&builder, "{'nld-id', <%s>}",
+                                    atrebas_feature_get_nld_id (feature));
     }
   else if ((id = geocode_place_get_osm_id (place)) != NULL)
     {
-      GVariant *value = g_variant_new_string (id);
-
-      g_variant_builder_add (&builder, "{sv}", "osm-id", value);
+      g_variant_builder_add_parsed (&builder, "{'osm-id', <%s>}", id);
     }
 
   return g_variant_builder_end (&builder);
