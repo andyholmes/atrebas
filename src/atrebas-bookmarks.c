@@ -14,10 +14,7 @@
 
 
 /**
- * SECTION:atrebasbookmarks
- * @short_description: A bookmark manager
- * @title: AtrebasBookmarks
- * @stability: Unstable
+ * AtrebasBookmarks:
  *
  * #AtrebasBookmarks is a simple bookmark manager that stores data in #GSettings. It
  * implements the #GListModel interface for convenience.
@@ -36,11 +33,11 @@ struct _AtrebasBookmarks
   gboolean       last_position_valid;
 };
 
-static void  atrebas_bookmarks_add_place_internal (AtrebasBookmarks        *self,
-                                               GeocodePlace        *place);
+static void   atrebas_bookmarks_add_place_internal (AtrebasBookmarks *self,
+                                                    GeocodePlace     *place);
 
 /* Interfaces */
-static void  g_list_model_iface_init          (GListModelInterface *iface);
+static void   g_list_model_iface_init (GListModelInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (AtrebasBookmarks, atrebas_bookmarks, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, g_list_model_iface_init));
