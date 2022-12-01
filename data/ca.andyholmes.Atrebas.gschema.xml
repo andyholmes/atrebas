@@ -30,5 +30,8 @@
       <summary>Notification</summary>
       <description>Notify when entering the traditional territory of an indigenous people.</description>
     </key>
+    <key name="show-disclaimer" type="b">
+      <default>true</default>
+    </key>
   </schema>
 </schemalist>
