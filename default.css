@@ -1,0 +1,221 @@
+/* SPDX-License-Identifier: CC0-1.0 */
+/* SPDX-FileCopyrightText: No rights reserved */
+
+@import url(https://andyholmes.ca/assets/css/base.css);
+
+
+/*
+ * General
+ */
+a {
+  color: currentColor;
+}
+
+.content {
+  width: 85%;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/*
+ * Pill Button
+ */
+a.pill {
+  display: block;
+  transition: all 250ms ease-in-out;
+
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-align: center;
+  text-decoration: none;
+
+  border-radius: 2em;
+  padding: 0.5em;
+}
+
+
+/*
+ * Header
+ */
+header {
+  color: var(--light2);
+  background-color: var(--blue5);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+header h1 {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+
+  margin: 0;
+  padding-right: 2rem;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header h1 svg {
+  fill: currentColor;
+  height: auto;
+  width: 1em;
+}
+
+
+/*
+ * Sections
+ */
+section {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+section h2 {
+  font-size: 1.75rem;
+  font-weight: normal;
+  margin: 0 0 2rem;
+}
+
+section ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0;
+}
+
+section ul > li {
+  display: block;
+  margin: 0 auto;
+}
+
+section li > svg {
+  display: block;
+  fill: currentColor;
+  width: 96px;
+  height: auto;
+  margin: 1rem auto;
+}
+
+p.content {
+  margin: 0 auto 2rem;
+  max-width: 30em;
+}
+
+
+/*
+ * Description
+ */
+#description h2 {
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+
+/*
+ * Downloads, Repository
+ */
+#downloads h3 {
+  font-weight: bold;
+}
+
+
+/*
+ * Footer
+ */
+footer {
+  background-color: var(--dark5);
+  color: white;
+  padding: 2rem 0;
+  font-size: 80%;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+/*
+ *
+ */
+@media (min-width: 700px) {
+  html, body {
+    font-size: 18px;
+  }
+}
+
+
+/*
+ * Color Scheme
+ */
+.atrebas-scheme {
+  background-color: var(--light2);
+  color: var(--dark4);
+}
+
+.atrebas-scheme a.pill {
+  background-color: var(--orange4);
+  color: var(--dark5);
+}
+.atrebas-scheme a.pill:focus,
+.atrebas-scheme a.pill:hover {
+  background-color: var(--orange3);
+  color: var(--dark5);
+}
+
+#downloads {
+  background-color: var(--blue2);
+  color: var(--dark4);
+}
+
+@media (prefers-color-scheme: dark) {
+  .atrebas-scheme {
+    background-color: var(--blue4);
+    color: var(--light2);
+  }
+
+  #downloads {
+    background-color: var(--blue5);
+    color: var(--light3);
+  }
+
+  .atrebas-scheme a.pill {
+    background-color: var(--orange4);
+    color: var(--dark5);
+  }
+  .atrebas-scheme a.pill:focus,
+  .atrebas-scheme a.pill:hover {
+    background-color: var(--orange3);
+    color: var(--dark5);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .atrebas-scheme {
+    background-color: var(--light2);
+    color: var(--dark4);
+  }
+
+  #downloads {
+    background-color: var(--blue1);
+    color: var(--dark4);
+  }
+
+  .atrebas-scheme a.pill {
+    background-color: var(--orange4);
+    color: var(--dark5);
+  }
+  .atrebas-scheme a.pill:focus,
+  .atrebas-scheme a.pill:hover {
+    background-color: var(--orange3);
+    color: var(--dark5);
+  }
+}
+
+
+
