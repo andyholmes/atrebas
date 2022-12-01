@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atrebas\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-31 05:32-0700\n"
+"POT-Creation-Date: 2022-11-30 22:16-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,10 +19,11 @@ msgstr ""
 
 #: data/ca.andyholmes.Atrebas.desktop.in.in:3
 #: data/metainfo/ca.andyholmes.Atrebas.metainfo.xml.in.in:11
+#: src/atrebas-application.c:67 src/main.c:22
 msgid "Atrebas"
 msgstr ""
 
-#: data/ca.andyholmes.Atrebas.desktop.in.in:4 src/atrebas-application.c:76
+#: data/ca.andyholmes.Atrebas.desktop.in.in:4
 msgid "Our Home on Native Land"
 msgstr ""
 
@@ -31,7 +32,7 @@ msgid "maps;"
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:10
-#: data/ui/atrebas-preferences-window.ui:52
+#: data/ui/atrebas-preferences-window.ui:39
 msgid "Run in background"
 msgstr ""
 
@@ -39,29 +40,37 @@ msgstr ""
 msgid "Continue running in the background after the main window is closed"
 msgstr ""
 
-#: data/ca.andyholmes.Atrebas.gschema.xml:15 data/ui/atrebas-map-view.ui:119
-#: data/ui/atrebas-window.ui:296
+#: data/ca.andyholmes.Atrebas.gschema.xml:15 data/ui/atrebas-window.ui:146
+#: data/ui/atrebas-window.ui:336
 msgid "Bookmarks"
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:16
-msgid "Bookmarked places and locations."
+msgid "Favourite places and locations."
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:20
-msgid "Location"
+msgid "Last Position"
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:21
-msgid "Use location services."
+msgid "The last latitude, longitude and zoom level the map displayed."
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:25
-msgid "Notification"
+msgid "Location"
 msgstr ""
 
 #: data/ca.andyholmes.Atrebas.gschema.xml:26
-#: data/ui/atrebas-preferences-window.ui:36
+msgid "Use location services."
+msgstr ""
+
+#: data/ca.andyholmes.Atrebas.gschema.xml:30
+msgid "Notification"
+msgstr ""
+
+#: data/ca.andyholmes.Atrebas.gschema.xml:31
+#: data/ui/atrebas-preferences-window.ui:25
 msgid "Notify when entering the traditional territory of an indigenous people."
 msgstr ""
 
@@ -80,7 +89,7 @@ msgid "Features:"
 msgstr ""
 
 #: data/metainfo/ca.andyholmes.Atrebas.metainfo.xml.in.in:23
-msgid "View maps of spoken languages, traditional territories and treaties"
+msgid "Area maps of spoken languages, traditional territories and treaties"
 msgstr ""
 
 #: data/metainfo/ca.andyholmes.Atrebas.metainfo.xml.in.in:24
@@ -103,123 +112,97 @@ msgstr ""
 msgid "Andy Holmes"
 msgstr ""
 
-#: data/ui/atrebas-culture-panel.ui:25 data/ui/atrebas-window.ui:238
-msgid "Culture"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:26
-msgid "No information available"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:58 data/ui/atrebas-map-marker.ui:66
-#: data/ui/atrebas-place-bar.ui:54
-msgid "Loading…"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:96 data/ui/atrebas-place-bar.ui:96
-msgid "Something went wrong"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:108 data/ui/atrebas-map-marker.ui:251
-#: data/ui/atrebas-place-bar.ui:109
-msgid "Retry"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:267 data/ui/atrebas-place-bar.ui:295
-#: src/atrebas-utils.c:58
-msgid "Language"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:305 src/atrebas-utils.c:61
-msgid "Territory"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:343 data/ui/atrebas-place-bar.ui:337
-#: src/atrebas-utils.c:64
-msgid "Treaty"
-msgstr ""
-
-#: data/ui/atrebas-culture-panel.ui:381 data/ui/atrebas-place-bar.ui:212
-#: data/ui/atrebas-place-bar.ui:379
-msgid "More Information"
-msgstr ""
-
-#: data/ui/atrebas-legend.ui:28 data/ui/atrebas-window.ui:267
+#: data/ui/atrebas-legend.ui:76 data/ui/atrebas-window.ui:307
 msgid "Legend"
 msgstr ""
 
-#: data/ui/atrebas-legend.ui:29
+#: data/ui/atrebas-legend.ui:77
 msgid "No features available"
 msgstr ""
 
-#: data/ui/atrebas-legend-row.ui:48 data/ui/atrebas-place-header.ui:62
-#: src/atrebas-culture-panel.c:160 src/atrebas-legend-row.c:309
-#: src/atrebas-map-marker.c:662 src/atrebas-place-bar.c:173 src/atrebas-place-header.c:274
+#: data/ui/atrebas-legend.ui:100
+msgid "Language regions have dotted borders"
+msgstr ""
+
+#: data/ui/atrebas-legend.ui:108
+msgid "Traditional territories have dashed borders"
+msgstr ""
+
+#: data/ui/atrebas-legend.ui:116
+msgid "Treaty regions have solid borders"
+msgstr ""
+
+#: data/ui/atrebas-legend-row.ui:50 data/ui/atrebas-place-header.ui:59
 msgid "Add Bookmark"
 msgstr ""
 
-#: data/ui/atrebas-map-marker.ui:8
-msgid "What's here?"
+#: data/ui/atrebas-map-marker.ui:67 data/ui/atrebas-place-bar.ui:54
+msgid "Loading…"
 msgstr ""
 
-#: data/ui/atrebas-map-view.ui:182
+#: data/ui/atrebas-map-marker.ui:139 data/ui/atrebas-place-bar.ui:109
+msgid "Retry"
+msgstr ""
+
+#: data/ui/atrebas-map-view.ui:89
 msgid "What's Here?"
 msgstr ""
 
-#: data/ui/atrebas-map-view.ui:187 data/ui/atrebas-place-header.ui:108
+#: data/ui/atrebas-map-view.ui:94
 msgid "Bookmark"
 msgstr ""
 
-#: data/ui/atrebas-map-view.ui:192
+#: data/ui/atrebas-map-view.ui:99
 msgid "Share this map"
 msgstr ""
 
-#: data/ui/atrebas-place-header.ui:102
-msgid "Center in map"
+#: data/ui/atrebas-place-bar.ui:96
+msgid "Something went wrong"
 msgstr ""
 
-#: data/ui/atrebas-place-header.ui:112
-msgid "Learn More"
+#: data/ui/atrebas-place-bar.ui:199 src/atrebas-utils.c:58
+msgid "Language"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:17 data/ui/atrebas-window.ui:323
+#: data/ui/atrebas-place-bar.ui:241 src/atrebas-utils.c:64
+msgid "Treaty"
+msgstr ""
+
+#: data/ui/atrebas-place-bar.ui:283
+msgid "More Information"
+msgstr ""
+
+#: data/ui/atrebas-place-header.ui:75
+msgid "Center in Map"
+msgstr ""
+
+#: data/ui/atrebas-preferences-window.ui:14 data/ui/atrebas-window.ui:363
 msgid "Preferences"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:20
+#: data/ui/atrebas-preferences-window.ui:17
 msgid "General"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:23
+#: data/ui/atrebas-preferences-window.ui:20
 msgid "Use location services"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:35
+#: data/ui/atrebas-preferences-window.ui:24
 msgid "Territory Notifications"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:66
+#: data/ui/atrebas-preferences-window.ui:53
 msgid "Maps"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:69 data/ui/atrebas-preferences-window.ui:74
+#: data/ui/atrebas-preferences-window.ui:56
+#: data/ui/atrebas-preferences-window.ui:61
 msgid "Update"
 msgstr ""
 
-#: data/ui/atrebas-preferences-window.ui:70
+#: data/ui/atrebas-preferences-window.ui:57
 msgid "Synchronize with Native Land Digital"
-msgstr ""
-
-#: data/ui/atrebas-preferences-window.ui:86 data/ui/atrebas-preferences-window.ui:102
-msgid "Acknowledgements"
-msgstr ""
-
-#: data/ui/atrebas-preferences-window.ui:103
-msgid "Proudly developed in beautiful S'ólh Téméxw"
-msgstr ""
-
-#: data/ui/atrebas-preferences-window.ui:140
-msgid "Back"
 msgstr ""
 
 #: data/ui/atrebas-window.ui:22
@@ -230,69 +213,79 @@ msgstr ""
 msgid "Go to current location"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:65 data/ui/atrebas-window.ui:252
+#: data/ui/atrebas-window.ui:62 data/ui/atrebas-window.ui:292
 msgid "Open the map legend"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:74 data/ui/atrebas-window.ui:223
-msgid "View cultural information"
-msgstr ""
-
-#: data/ui/atrebas-window.ui:84
+#: data/ui/atrebas-window.ui:70
 msgid "Show application menu"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:102
+#: data/ui/atrebas-window.ui:87
 msgid "Open bookmarks"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:117 data/ui/atrebas-window.ui:194
-#: data/ui/atrebas-window.ui:209
+#: data/ui/atrebas-window.ui:263 data/ui/atrebas-window.ui:278
 msgid "Map"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:281
+#: data/ui/atrebas-window.ui:321
 msgid "Open Bookmarks"
 msgstr ""
 
-#: data/ui/atrebas-window.ui:327
+#: data/ui/atrebas-window.ui:367
 msgid "About Atrebas"
 msgstr ""
 
-#: src/atrebas-application.c:79
+#: src/atrebas-application.c:73
 msgid "translator-credits"
 msgstr ""
 
-#: src/atrebas-application.c:102
+#: src/atrebas-application.c:107
+msgid "_Don't show again"
+msgstr ""
+
+#: src/atrebas-application.c:117
+msgid "Disclaimer"
+msgstr ""
+
+#: src/atrebas-application.c:129
+msgid "_Accept"
+msgstr ""
+
+#: src/atrebas-application.c:151
 msgid "Error updating"
 msgstr ""
 
-#: src/atrebas-culture-panel.c:130 src/atrebas-place-bar.c:143
-msgid "Not available"
+#: src/atrebas-application-credits.h:24
+msgid "Cultural Data"
 msgstr ""
 
-#: src/atrebas-culture-panel.c:153 src/atrebas-legend-row.c:302
-#: src/atrebas-map-marker.c:655 src/atrebas-place-bar.c:166 src/atrebas-place-header.c:267
-msgid "Remove Bookmark"
+#: src/atrebas-application-credits.h:30
+msgid "Map Data"
 msgstr ""
 
-#: src/atrebas-culture-panel.c:290 src/atrebas-culture-panel.c:295
-#: src/atrebas-culture-panel.c:300
-msgid "None"
+#: src/atrebas-application-credits.h:36
+msgid "Map Imagery"
 msgstr ""
 
 #: src/atrebas-legend-row.c:65
 msgid "Hide Layer"
 msgstr ""
 
-#: src/atrebas-legend-row.c:71
+#: src/atrebas-legend-row.c:70
 msgid "Show Layer"
 msgstr ""
 
-#: src/atrebas-place-bar.c:295 src/atrebas-place-bar.c:300 src/atrebas-place-header.c:235
+#: src/atrebas-place-bar.c:135
+msgid "Not available"
+msgstr ""
+
+#: src/atrebas-place-bar.c:266 src/atrebas-place-bar.c:271
+#: src/atrebas-place-header.c:107
 msgid "Unknown"
 msgstr ""
 
-#: src/atrebas-place-header.c:236
-msgid "Place"
+#: src/atrebas-utils.c:61
+msgid "Territory"
 msgstr ""

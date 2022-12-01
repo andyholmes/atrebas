@@ -1,7 +1,6 @@
 data/ca.andyholmes.Atrebas.desktop.in.in
 data/ca.andyholmes.Atrebas.gschema.xml
 data/metainfo/ca.andyholmes.Atrebas.metainfo.xml.in.in
-data/ui/atrebas-culture-panel.ui
 data/ui/atrebas-legend.ui
 data/ui/atrebas-legend-row.ui
 data/ui/atrebas-map-marker.ui
@@ -12,7 +11,6 @@ data/ui/atrebas-preferences-window.ui
 data/ui/atrebas-window.ui
 src/atrebas-application.c
 src/atrebas-application-credits.h
-src/atrebas-culture-panel.c
 src/atrebas-legend-row.c
 src/atrebas-map-marker.c
 src/atrebas-place-bar.c

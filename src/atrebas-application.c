@@ -89,6 +89,49 @@ about_action (GSimpleAction *action,
 }
 
 static void
+disclaimer_action (GSimpleAction *action,
+                   GVariant      *parameter,
+                   gpointer       user_data)
+{
+  AtrebasApplication *self = ATREBAS_APPLICATION (user_data);
+  GtkWindow *dialog = NULL;
+  GtkWindow *window = NULL;
+  GtkWidget *checkbutton;
+
+  g_assert (ATREBAS_IS_APPLICATION (self));
+
+  if (!g_settings_get_boolean (self->settings, "show-disclaimer"))
+    return;
+
+  checkbutton = g_object_new (GTK_TYPE_CHECK_BUTTON,
+                              "label",         _("_Don't show again"),
+                              "margin-top",    24,
+                              "use-underline", TRUE,
+                              NULL);
+  g_settings_bind (self->settings, "show-disclaimer",
+                   checkbutton,    "active",
+                   G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
+
+  window = gtk_application_get_active_window (GTK_APPLICATION (user_data));
+  dialog = g_object_new (ADW_TYPE_MESSAGE_DIALOG,
+                         "heading",         _("Disclaimer"),
+                         "body",            "This map does not represent or intend to represent official or legal boundaries of any Indigenous nations. To learn about definitive boundaries, contact the nations in question.\n\n"
+                                            "Also, this map is not perfect — it is a work in progress with tons of contributions from the community. Please send us fixes if you find errors.\n\n"
+                                            "We strive to represent nations and Indigenous people on their own terms. When there are conflicts or issues with our information, we try to fix things as soon as possible with the input of all parties involved.\n\n"
+                                            "Visit <a href=\"https://native-land.ca/about/how-it-works/\">Native Land Digital</a> for more information."
+                         "body-use-markup", TRUE,
+                         "extra-child",     checkbutton,
+                         "modal",           window != NULL,
+                         "transient-for",   window,
+                         NULL);
+  adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (dialog),
+                                   "accept",
+                                   _("_Accept"));
+
+  gtk_window_present (dialog);
+}
+
+static void
 atrebas_backend_update_cb (AtrebasBackend     *backend,
                        GAsyncResult   *result,
                        AtrebasApplication *self)
@@ -147,9 +190,10 @@ quit_action (GSimpleAction *action,
 }
 
 static const GActionEntry actions[] = {
-  { "about",  about_action,  NULL,  NULL, NULL },
-  { "update", update_action, NULL,  NULL, NULL },
-  { "quit",   quit_action,   NULL,  NULL, NULL }
+  { "about",      about_action,      NULL,  NULL, NULL },
+  { "disclaimer", disclaimer_action, NULL,  NULL, NULL },
+  { "update",     update_action,     NULL,  NULL, NULL },
+  { "quit",       quit_action,       NULL,  NULL, NULL }
 };
 
 /*
@@ -172,6 +216,7 @@ atrebas_application_activate (GApplication *application)
     }
 
   gtk_window_present_with_time (self->window, GDK_CURRENT_TIME);
+  g_action_group_activate_action (G_ACTION_GROUP (self), "disclaimer", NULL);
 }
 
 static void
