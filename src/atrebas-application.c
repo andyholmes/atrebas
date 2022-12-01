@@ -118,7 +118,7 @@ disclaimer_action (GSimpleAction *action,
                          "body",            "This map does not represent or intend to represent official or legal boundaries of any Indigenous nations. To learn about definitive boundaries, contact the nations in question.\n\n"
                                             "Also, this map is not perfect — it is a work in progress with tons of contributions from the community. Please send us fixes if you find errors.\n\n"
                                             "We strive to represent nations and Indigenous people on their own terms. When there are conflicts or issues with our information, we try to fix things as soon as possible with the input of all parties involved.\n\n"
-                                            "Visit <a href=\"https://native-land.ca/about/how-it-works/\">Native Land Digital</a> for more information."
+                                            "Visit <a href=\"https://native-land.ca/about/how-it-works/\">Native Land Digital</a> for more information.",
                          "body-use-markup", TRUE,
                          "extra-child",     checkbutton,
                          "modal",           window != NULL,
